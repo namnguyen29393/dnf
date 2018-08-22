@@ -1,0 +1,1 @@
+﻿var SSOApp = angular.module('SSOApp', []);
