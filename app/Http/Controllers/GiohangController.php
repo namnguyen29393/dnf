@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\sanpham;
 use App\thongtincuahang;
 use App\Giohang;
+use App\dondathang;
 use Auth;
 use DB;
 
@@ -26,7 +27,6 @@ class GiohangController extends Controller
             $info->user_id = Auth::user()->id_user;
             $info->cuahang_id = $request->cuahang_id;
             $info->soluong = 1;
-            $info->phivc = 6000;
             $info->giasp = $request->giasp;
             $info->save();
         }
@@ -77,16 +77,45 @@ class GiohangController extends Controller
 
     public function order (Request $request)
     {
-        $sum = Giohang::where('cuahang_id',$request->id_cuahang)
-            ->where('user_id', Auth::user()->id_user)
-            ->select(DB::raw('sum(giasp) as total'))
-            ->first();
+        // $sum = Giohang::where('cuahang_id',$request->id_cuahang)
+        //     ->where('user_id', Auth::user()->id_user)
+        //     ->select(DB::raw('sum(giasp) as total'))
+        //     ->first();
+        $sum = 0;
+        $chitiet = [];
+        $infocart = Giohang::where('cuahang_id',$request->id_cuahang)
+            ->where('user_id', Auth::user()->id_user)->get();
+        foreach ($infocart as $value) {
+            $sum += $value->soluong * $value->giasp;
+            $chitiet[] = [
+                'soluong' => $value->soluong,
+                'giasp' => $value->giasp,
+                'sp_id' => $value->sp_id,
+            ];
+        }
+
         $data = [
             'sdt' => $request->phone,
             'diachi' => $request->address,
-            'tongtien' => $sum->total,
+            'tongtien' => $sum,
             'user_id' => Auth::user()->id_user,
+            'ghichu' => $request->ghichu,
+            'phivc' => $request->phivc,
+            'cuahang_id' =>$request->id_cuahang,
         ];
+        $dondathang = dondathang::create($data);
+        $dondathang->chitiet()->createMany($chitiet);
+        Giohang::where('cuahang_id',$request->id_cuahang)
+            ->where('user_id', Auth::user()->id_user)
+            ->delete();
+
         return $data;
+    }
+
+    public function history ()
+    {
+        $ddh = dondathang::with(['chitiet', 'thongtincuahang'])->where('user_id', '=', Auth::user()->id_user)->get();
+
+        return view('now.customer.lichsu',['ddh'=>$ddh]);
     }
 }

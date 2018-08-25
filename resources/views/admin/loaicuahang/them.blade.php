@@ -25,7 +25,7 @@
                 {{session('thongbao')}}
             </div>
     @endif
-<form action="{!! route('admin.loaicuahang.them') !!}" method="POST" " enctype="multipart/form-data">
+    <form action="{!! route('admin.loaicuahang.them') !!}" method="POST" " enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{!! csrf_token()!!}" />
    <!--     <div class="form-group">
             <label>Loại cửa hàng</label>

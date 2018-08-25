@@ -88,6 +88,18 @@ Route::group(['namespace'=>'admin', 'prefix'=>'admin', 'middleware' => ['auth', 
 
 		route::get('xoa/{id_user}','UserController@getXoa')->name('admin.user.xoa');
 	});
+
+	Route::group(['prefix'=>'taixe'],function(){
+		Route::get('danhsach', 'TaixeController@getDanhsach')->name('admin.taixe.danhsach');
+
+		Route::get('them','TaixeController@getThem')->name('admin.taixe.them');
+		Route::post('them','TaixeController@postThem')->name('admin.taixe.updatethem');
+
+		Route::get('sua/{id_tx}','TaixeController@getSua')->name('admin.taixe.sua');
+		Route::post('sua/{id_tx}','TaixeController@postSua')->name('admin.taixe.updatesua');
+
+		Route::get('xoa/{id_tx}', 'TaixeController@getXoa')->name('admin.taixe.xoa');
+	});
 });
 
 Route::get('cuahang/{tencuahang}','CuahangController@getCuahang')->name('fls.chitiet');
@@ -122,6 +134,8 @@ Route::group(['prefix'=>'thongtinsanpham'], function(){
 });
 
 Auth::routes();
+
+Route::get('/lich-su-dat-mon', 'GiohangController@history');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\thongtincuahang;
 use App\sanpham;
 use App\loaisanpham;
@@ -197,12 +198,29 @@ class CuahangController extends Controller
             'txtmkxn.required'=>'Mật vào nhập khẩu',
             'txtmkxn.same'=>'Mật khẩu không trùng khớp!'
         ]);
-        $user = User::select('password')->first();
-        
-        $user->password = bcrypt($request->txtmk);
-        $user->save();
 
-        return redirect()->route('thongtinsanpham.doimatkhau')->with('thongbao','Sửa thành công');
+        $request->user()->fill([
+            'password' => Hash::make($request->txtmk)
+        ])->save();
+        // $this->validate($request,
+        // [          
+        //     'txtmk'=>'required|min:6|max:32',
+        //     'txtmkxn'=>'required|same:txtmk'
+        // ],
+        // [
+            
+        //     'txtmk.required'=>'Chưa nhập mật khẩu!',
+        //     'txtmk.min'=>'Mật khẩu phải có ít nhất 3 ký tự!',
+        //     'txtmk.max'=>'Mật khẩu phải có tối đa 32 ký tự!',
+        //     'txtmkxn.required'=>'Mật vào nhập khẩu',
+        //     'txtmkxn.same'=>'Mật khẩu không trùng khớp!'
+        // ]);
+        // // $user = User::select('password')->first();
+        
+        // Auth::user()->password = bcrypt($request->txtmk);
+        // // $user->save();
+
+        return redirect()->route('thongtinsanpham.doimatkhau')->with('thongbao','Đổi mật khẩu thành công');
 
     }
 
@@ -228,7 +246,7 @@ class CuahangController extends Controller
         $loaisanpham->tenloaisp = $request->txtTenloaisp;
         $loaisanpham->save();
 
-        return redirect()->route('thongtinsanpham.themloaisanpham')->with('thongbao','Sửa thành công');
+        return redirect()->route('thongtinsanpham.themloaisanpham')->with('thongbao','Thêm thành công');
 
     }
 

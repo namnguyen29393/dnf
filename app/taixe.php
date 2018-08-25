@@ -13,7 +13,4 @@ class taixe extends Model
     protected $primaryKey = 'id_tx';
 
     public $timestamps = false;
-
-
-    }
 }

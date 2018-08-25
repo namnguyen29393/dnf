@@ -23,7 +23,7 @@ class CreateSanphamsTable extends Migration
             $table->integer('loaisp_id')->unsigned();
             $table->foreign('loaisp_id')->references('id_loaisp')->on('loaisanphams')->onDelete('cascade');
 
-            $table->integer('cuahang_id')->usigned();
+            // $table->integer('cuahang_id')->usigned();
             $table->timestamps();
         });
     }

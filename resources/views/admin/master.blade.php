@@ -103,8 +103,22 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+
+                        <!-- Thêm tài xế -->
+                        <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Tài Xế<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/admin/taixe/danhsach">Danh sách Tài xế</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/taixe/them">Thêm Tài xế</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
   
-                        
+                        <!-- Thêm user -->
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

@@ -197,17 +197,7 @@
                                         <i class="fa fa-user"></i> Đổi mật khẩu
                                     </a>
                                 </li>
-                                <li id="proChangeAvatar">
-                                    <a href="/tai-khoan/doi-hinh-dai-dien">
-                                        <i class="fa fa-photo"></i> Cập nhật hình đại diện
-                                    </a>
-                                </li>
-
-                                <li id="proManageAddress">
-                                    <a href="/tai-khoan/quan-ly-dia-chi">
-                                        <i class="fa fa-cog"></i> Quản lý địa chỉ
-                                    </a>
-                                </li>
+                                
                                 <li>
                                     <a href="/">
                                         <i class="fa fa-sign-out"></i> Thoát

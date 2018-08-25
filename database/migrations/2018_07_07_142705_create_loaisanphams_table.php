@@ -17,9 +17,9 @@ class CreateLoaisanphamsTable extends Migration
             $table->increments('id_loaisp');
             $table->string('tenloaisp')->unique();
             $table->string('tenkhongdau');
-            $table->integer('cuahang_id')->usigned();
-            // $table->integer('cuahang_id')->unsigned();
-            // $table->foreign('cuahang_id')->references('id_cuahang')->on('thongtincuahangs')->onDelete('cascade');
+            // $table->integer('cuahang_id')->usigned();
+            $table->integer('cuahang_id')->unsigned();
+            $table->foreign('cuahang_id')->references('id_cuahang')->on('thongtincuahangs')->onDelete('cascade');
             $table->timestamps();
             
         });

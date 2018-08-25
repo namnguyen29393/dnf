@@ -8,11 +8,9 @@ class Giohang extends Model
 {
     protected $table = 'giohang';
 
-    protected $fillable =['tensp','soluong', 'giasp','tongtiensp','tongtien','phivc','cuahng_id','user_id'];
+    protected $fillable =['tensp','soluong', 'giasp','tongtiensp','tongtien','cuahng_id','user_id', 'tx_id'];
 
     protected $primaryKey = 'id_giohang';
-
-    public $timestamps = false;
 
     public function User(){
     	return $this->belongsTo('App\User', 'user_id');

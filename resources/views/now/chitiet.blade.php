@@ -265,7 +265,7 @@
                         Chi tiết đơn hàng
                         <i class="fa fa-angle-right" aria-hidden="true"></i>
                     </p>
-                    <div class="order-list">
+                    <div class="order-list" id="popup-order-list">
                         @if(Auth::check())
                             @foreach($infocart as $item)
                             <div class="order-item ng-scope">
@@ -282,16 +282,18 @@
                                     </div>
                                 </div>
                                 <div class="order-item-price ng-binding">
-                                    {{ $item->giasp }} đ
+                                    {{ $item->giasp * $item->soluong }} đ
                                 </div>
                             </div>
                             @endforeach
                         @endif
                     </div>
 
-                    <div class="info-order">
+                    <div class="info-order" id="popup-order-sum">
                         <div class="clearfix">
-                            <div class="pull-left">Total <span class="bold ng-binding">2</span> món</div>
+                            <div class="pull-left">
+                                Total <span class="bold ng-binding">{{ Auth::check() ? count($infocart) : '0' }}</span> món
+                            </div>
                             <div class="pull-right bold ng-binding">{{ Auth::check() ? $sum : '0' }} đ</div>
                         </div>
                         <!-- ngIf: detailCtrl.shippingMethodSelected != detailCtrl.ShippingMethodConstant.Pickup -->
@@ -300,7 +302,7 @@
                                 Phí vận chuyển: <span class="txt-red ng-binding">1 km</span>
                                 <a href="#" ng-show="detailCtrl.isFoodyDelivery" ng-click="detailCtrl.showInfoDeliveryFeeMin()" class="show-fee-min"><i class="fa fa-question"></i></a>
                             </div>
-                            <div class="pull-right ng-binding">{{ $cuahang->phivc }} đ</div>
+                            <div class="pull-right ng-binding">6000 đ</div>
                         </div>
                     </div>
 
@@ -310,7 +312,7 @@
                             <span>Tạm tính</span>
                         </div>
                         <div class="pull-right">
-                            <span class="ng-binding">{{ Auth::check() ? ($sum + $cuahang->phivc) : '0' }} đ</span>
+                            <span class="ng-binding" id="popup-order-total" data-value="{{ Auth::check() ? ($sum + 6000) : 0 }}">{{ Auth::check() ? ($sum + 6000) : 0 }} đ</span>
                         </div>
                     </div>
                     <div class="clearfix payment-methods" ng-click="detailCtrl.changePaymentMethod()">
@@ -326,7 +328,7 @@
                         </div>
                     </div>
                     <div class="clearfix order-note">
-                        <textarea placeholder="Ví dụ: Tòa nhà ABC, lầu 8, cho thêm 2 ly nhựa...." id="note1" class="materialize-textarea ng-pristine ng-valid ng-empty ng-touched" ng-model="detailCtrl.orderNote"></textarea>
+                        <textarea placeholder="Ví dụ: Tòa nhà ABC, lầu 8, cho thêm 2 ly nhựa...." id="ghichu" class="materialize-textarea ng-pristine ng-valid ng-empty ng-touched"></textarea>
                         
                     </div>
                     <div class="clearfix" ng-show="detailCtrl.isDeliveryInvoice == false" style="padding: 10px">
@@ -733,9 +735,6 @@
                     
                 @endforeach
             @endif
-        
-        
-        <!-- end ngRepeat: item in detailCtrl.cart | orderBy:'OwerName' | groupBy:'OwerName' -->
         </div>
 
     <div class="center-align ng-hide" ng-show="!detailCtrl.isHost">
@@ -755,7 +754,7 @@
         <span>Phí vận chuyển (Est.)</span>
         
         <span class="pull-right">
-            <span ng-show="!detailCtrl.hasMilestoneFee" class="ng-binding">7,000<span class="unit"> đ</span>/km</span>
+            <span ng-show="!detailCtrl.hasMilestoneFee" class="ng-binding">6000<span class="unit"> đ</span>/km</span>
             <a href="#service-delivery-milestone-fee-modal" class="modal-trigger ng-hide" ng-show="detailCtrl.hasMilestoneFee">[?]</a>
         </span>
     </div>
@@ -1026,41 +1025,41 @@
     var place_end = {};
 
     function renderCart (data) {
-            var cartitem = '';
-            $.each(data, function (index, item){
-                var acc = '{{Auth::user()->name}}';
+        var cartitem = '';
+        $.each(data, function (index, item){
+            var acc = '{{Auth::user()->name}}';
 
-                 cartitem += `
-                    <div class="row-bill clearfix ng-scope">
-                        ${index == 0 ? `
-                            <div class="group-card-item" >
-                                <div class="cart-user">
-                                    <img ng-src="" style="border-radius: 50%; vertical-align: middle;" src="">
-                                    <span class="name-user ng-binding">${acc}</span>
-                                    <div class="number-item ng-binding">
-                                        ${data.length} món
-                                    </div>
+             cartitem += `
+                <div class="row-bill clearfix ng-scope">
+                    ${index == 0 ? `
+                        <div class="group-card-item" >
+                            <div class="cart-user">
+                                <img ng-src="" style="border-radius: 50%; vertical-align: middle;" src="">
+                                <span class="name-user ng-binding">${acc}</span>
+                                <div class="number-item ng-binding">
+                                    ${data.length} món
                                 </div>
                             </div>
-                        ` : ''}
-
-                        <p style="margin: 0;" class="clearfix">
-                            <span class="fa fa-plus-square txt-green pull-left btn-add-cart" data-columns="${item.id_giohang}></span>
-                            <span class="txt-red bold font12 ng-binding" style="display: inline-block; min-width: 18px; text-align: center; float: left;">${item.soluong}</span>
-                            <span class="fa fa-minus-square pull-left btn-remove-cart" data-columns="${item.id_giohang}></span>
-                            <span class="bold font13 ng-binding">${item.tensp}</span>
-                            <span style="font-size: 11px; color: #666;" class="ng-binding">
-                              
-                            </span>
-
-                        </p>
-                        <div class="add-minus-food clearfix">
-                            <input type="text" placeholder="Giá sản phẩm" class="pull-left note-order ng-pristine ng-untouched ng-valid ng-empty">
-                            <span style="float: right;" class="ng-binding">${item.giasp*item.soluong}</span>               
                         </div>
+                    ` : ''}
+
+                    <p style="margin: 0;" class="clearfix">
+                        <span class="fa fa-plus-square txt-green pull-left btn-add-cart" data-columns="${item.id_giohang}></span>
+                        <span class="txt-red bold font12 ng-binding" style="display: inline-block; min-width: 18px; text-align: center; float: left;">${item.soluong}</span>
+                        <span class="fa fa-minus-square pull-left btn-remove-cart" data-columns="${item.id_giohang}></span>
+                        <span class="bold font13 ng-binding">${item.tensp}</span>
+                        <span style="font-size: 11px; color: #666;" class="ng-binding">
+                          
+                        </span>
+
+                    </p>
+                    <div class="add-minus-food clearfix">
+                        <input type="text" placeholder="Giá sản phẩm" class="pull-left note-order ng-pristine ng-untouched ng-valid ng-empty">
+                        <span style="float: right;" class="ng-binding">${item.giasp*item.soluong}</span>               
                     </div>
-                `;
-            });
+                </div>
+            `;
+        });
       
         return cartitem;
     }
@@ -1085,8 +1084,76 @@
         return totalitem;
     }
 
+    function renderPopupOrderList (data) {
+        var cartitem = '';
+        $.each(data, function (index, item){
+
+             cartitem += `
+                <div class="order-item ng-scope">
+                    <span class="order-item-number ng-binding">${item.soluong}</span>
+                    <div class="order-item-info">
+                        <div class="order-item-name">
+                            <span class="bold ng-binding">${item.tensp}</span>
+                            <span class="note-toping ng-binding ng-hide" ng-show="item.Attributes.length > 0" title="[]">
+                                []
+                            </span>
+                        </div>
+                        <div class="order-item-note ng-binding">
+                            
+                        </div>
+                    </div>
+                    <div class="order-item-price ng-binding">
+                        ${item.soluong * item.giasp} đ
+                    </div>
+                </div>
+            `;
+        });
+      
+        return cartitem;
+    }
+
+    function renderPopupOrderSum (data) {
+        var cartitem = '';
+        var sum =0;
+        for (var i = 0; i < data.length; i++) 
+        {
+            sum += data[i].soluong*data[i].giasp;
+        }
+
+        cartitem += `
+            <div class="clearfix">
+                <div class="pull-left">
+                    Total <span class="bold ng-binding">${data.length}</span> món
+                </div>
+                <div class="pull-right bold ng-binding">${sum} đ</div>
+            </div>
+            <!-- ngIf: detailCtrl.shippingMethodSelected != detailCtrl.ShippingMethodConstant.Pickup -->
+            <div class="clearfix ng-scope">
+                <div class="pull-left">
+                    Phí vận chuyển: <span class="txt-red ng-binding">1 km</span>
+                    <a href="#" ng-show="detailCtrl.isFoodyDelivery" ng-click="detailCtrl.showInfoDeliveryFeeMin()" class="show-fee-min"><i class="fa fa-question"></i></a>
+                </div>
+                <div class="pull-right ng-binding">6000 đ</div>
+            </div>
+        `;
+      
+        return cartitem;
+    }
+
+    function renderPopupOrderTotal (data, fee) {
+        var cartitem = '';
+        var sum =0;
+        for (var i = 0; i < data.length; i++) 
+        {
+            sum += data[i].soluong*data[i].giasp;
+        }
+
+        return sum + fee + ' đ'
+    }
+
     function addtoCart(item) 
     {
+        item.cuahang_id = '{{ $cuahang->id_cuahang }}';
         // console.log(item)
         $.post("{{route('fls.giohang')}}", item, function(data) 
         {
@@ -1094,6 +1161,9 @@
             // Thêm sản phẩm
             $("#cartuser").html(renderCart(data));
             $("#total-item").html(renderTotalCart(data));
+            $("#popup-order-list").html(renderPopupOrderList(data));
+            $("#popup-order-sum").html(renderPopupOrderSum(data));
+            $("#popup-order-total").html(renderPopupOrderTotal(data, 6000));
         });
     };
 
@@ -1113,6 +1183,9 @@
                 // ---Reg code----
                 $("#cartuser").html(renderCart(response));
                 $("#total-item").html(renderTotalCart(response));
+                $("#popup-order-list").html(renderPopupOrderList(response));
+                $("#popup-order-sum").html(renderPopupOrderSum(response));
+                $("#popup-order-total").html(renderPopupOrderTotal(response, 6000));
                     
                 //
                     
@@ -1135,23 +1208,31 @@
             {
                 $("#cartuser").html(renderCart(response));
                 $("#total-item").html(renderTotalCart(response));
+                $("#popup-order-list").html(renderPopupOrderList(response));
+                $("#popup-order-sum").html(renderPopupOrderSum(response));
+                $("#popup-order-total").html(renderPopupOrderTotal(response, 6000));
             },
         });
     })
 
 // booking show popup
     $(document).on('click', '#btn-book', function(){
-        $('#materialize-lean-overlay-5').css({
-            'display': 'block',
-        });
-        $('#confirminfo').css({
-            'z-index': '1003',
-            'display': 'block',
-            'opacity': '1',
-            'transform': 'scaleX(1)',
-            'top': '10%'
-        });
-        $('#confirminfo').addClass('open');
+        console.log($("#cartuser").html().trim())
+        if ($("#cartuser").html().trim()) {
+            $('#materialize-lean-overlay-5').css({
+                'display': 'block',
+            });
+            $('#confirminfo').css({
+                'z-index': '1003',
+                'display': 'block',
+                'opacity': '1',
+                'transform': 'scaleX(1)',
+                'top': '10%'
+            });
+            $('#confirminfo').addClass('open');
+        } else {
+            alert('Bạn chưa chọn món')
+        }
     })
 
 // booking hide popup
@@ -1191,6 +1272,9 @@
     $(document).on('click', '#popup-modal-2-btn-continue', function(){
         var fullname = $('#fullname').val();
         var phone = $('#phone').val();
+        var phone = $('#phone').val();
+
+        $("#popup-order-total").text();
         if (fullname && phone && place_end.formatted_address) {
             var service = new google.maps.DistanceMatrixService();
             service.getDistanceMatrix(
@@ -1253,20 +1337,50 @@
         console.log('order')
         var fullname = $('#fullname').val();
         var phone = $('#phone').val();
+        var ghichu = $('#ghichu').val();
         var data = {
             id_cuahang: {{$cuahang->id_cuahang}},
             name: fullname,
             phone: phone,
-            address: place_end.formatted_address
+            address: place_end.formatted_address,
+            ghichu: ghichu,
+            phivc: 6000
         }
-        $.ajax({
-            type: "POST",
-            url: '/order',
-            data: data,
-            success: function(response) {
-                //
-            },
-        });
+        if (
+            data.id_cuahang
+            && data.name
+            && data.phone
+            && data.address
+            && data.phivc
+        ) {
+            $.ajax({
+                type: "POST",
+                url: '/order',
+                data: data,
+                success: function(response) {
+                    alert('đặt hàng thành công')
+                    $('#cartuser').html('')
+                    $('#shipping-address-distance').html('')
+                    $("#total-item").html(renderTotalCart([]));
+                    $('#popup-order-list').html('')
+                    $("#popup-order-sum").html(renderPopupOrderSum([]));
+                    $("#popup-order-total").html(renderPopupOrderTotal([], 6000));
+                    $('#materialize-lean-overlay-5').css({
+                        'display': 'none',
+                    });
+                    $('#confirminfo').css({
+                        'z-index': '1003',
+                        'display': 'none',
+                        'opacity': '0',
+                        'transform': 'scaleX(0.7)',
+                        'top': '4%'
+                    });
+                    $('#confirminfo').removeClass('open');
+                },
+            });
+    } else {
+        alert('chưa nhập đủ thông tin')
+    }
     })
 
 

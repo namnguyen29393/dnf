@@ -1,4 +1,5 @@
-@extends('now.cuahang.master') @section('content')
+@extends('now.cuahang.master') 
+@section('content')
 <div class="col-md-9">
     <div class="profile-content">
 
@@ -11,6 +12,21 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <h3 style="text-align:center">Đổi mật khẩu</h3>
+
+                @if (count($errors)>0)
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{!!$error!!}</li>
+                    @endforeach
+                    </div>
+                @endif
+
+                @if (session('thongbao'))
+                    <div class="alert alert-success">
+                        {{session('thongbao')}}
+                    </div>
+                @endif
+                
                 <form action="{{ route('thongtinsanpham.doimatkhau') }}" class="form-horizontal" method="POST" enctype="multipart/form-data">
                                     <input type="hidden" name="_token" value="{!! csrf_token()!!}" />
                 

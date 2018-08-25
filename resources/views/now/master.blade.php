@@ -183,9 +183,7 @@
         <nav class="white" role="navigation" style="box-shadow:none;border-bottom: #eee 1px solid;">
             <div class="container-header clearfix">
                 <div class="logo pull-left">
-                    <a href="#" title="FLS" style="color: red">
-                        FLS
-                    </a>
+                    <img src="{{asset('/upload/logo.jpg')}}" width="100px" height="55px">
                 </div>
 
 

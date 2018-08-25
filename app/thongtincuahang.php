@@ -33,8 +33,8 @@ class thongtincuahang extends Model
     	return $this->hasOne('App\User', 'user_id');
     }
 
-    public function chitiet(){
-    	return $this->hasMany('App\chitiet', 'cuahang_id');
+    public function dondathang(){
+    	return $this->hasMany('App\dondathang', 'cuahang_id');
     }
 
      public function sanpham(){

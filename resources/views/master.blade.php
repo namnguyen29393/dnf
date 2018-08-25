@@ -433,134 +433,14 @@
     </script>
     <script src="scripts/bundle/public.core.mind0fc.js?54500d" type="text/javascript"></script>
     <script src="Scripts/js_rating/star-rating.js"></script>
-    <script type="text/javascript">
-        var staticPath = 'index.html'
-        var province = 'da-nang';
-        var provinceId = '219';
-        var provinceName = 'Đ&#224; Nẵng';
-        var defaultLatgitude = parseFloat('16.051571');
-        var defaultLongitude = parseFloat('108.214897');
-        var fbAppId = '938149792891368';
-
-        var ssoUrl = '';
-        var defaultUrl = 'https://www.deliverynow.vn/';
-
-        var ssoLoginUrl = 'https://id.foody.vn/Account/Login?ReturnUrl=https://www.now.vn:443/lien-he';
-        var returnReLogin = 'https://id.foody.vn/Account/Logout?ReturnUrl=https://www.now.vn:443/lien-he';
-
-        // var a = null;
-        // $(window).scroll(function () {
-        //     a && window.clearTimeout(a), a = setTimeout(function () {
-        //             $(window).scrollTop() > 300 ? $(".fd-back-top").show() : $(".fd-back-top").hide();
-        //         },
-        //         50);
-        // });
-    </script>
 
 
 
 
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7ucxtKFino7UMs5yOqOGZIS11ZaDOiTQ&amp;language=vi&amp;libraries=placeses,visualization,drawing,geometry,places&amp;region=vn" type="text/javascript"></script>
-
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '../www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-33292184-11', 'auto');
-        ga('send', 'pageview');
-        ga('require', 'ecommerce', 'ecommerce.html');
-    </script>
-
-    <!-- Facebook Pixel Code -->
-    <script>
-        ! function(f, b, e, v, n, t, s) {
-            if (f.fbq) return;
-            n = f.fbq = function() {
-                n.callMethod ?
-                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-            };
-            if (!f._fbq) f._fbq = n;
-            n.push = n;
-            n.loaded = !0;
-            n.version = '2.0';
-            n.queue = [];
-            t = b.createElement(e);
-            t.async = !0;
-            t.src = v;
-            s = b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t, s)
-        }(window,
-            document, 'script', '../connect.facebook.net/en_US/fbevents.js');
-
-        fbq('init', '576888802513805');
-        fbq('track', "PageView");
-    </script>
-    <noscript>
-        <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=576888802513805&amp;ev=PageView&amp;noscript=1" />
-    </noscript>
-    <!-- End Facebook Pixel Code -->
-
-    <!-- Google Tag Manager -->
-    <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start': new Date().getTime(),
-                event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                '../www.googletagmanager.com/gtm5445.html?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-WTB2PQB');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/33/7/intl/vi_ALL/common.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/33/7/intl/vi_ALL/util.js"></script>
-    <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/33/7/intl/vi_ALL/stats.js"></script>
 </head>
 
 <body>
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Website",
-            "name": "Deliverynow",
-            "alternateName": "DeliveryNow Vietnam",
-            "url": "https://www.deliverynow.vn",
-            "sameAs": [
-                "https://www.facebook.com/deliveryNow.vn",
-                "https://twitter.com/DeliveryNowVN",
-                "https://plus.google.com/u/0/114035556444820573589",
-                "https://www.instagram.com/deliverynow.vn"
-            ],
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": "https://www.deliverynow.vn/ho-chi-minh/danhsach-dia-diem-giao-tan-noi?q={search_term}",
-                "query-input": "required name=search_term"
-            }
-        }
-    </script>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTB2PQB" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
 
 
 
@@ -598,14 +478,6 @@
                         </li>
                     </ul>
                 </div>
-                <script type="text/javascript">
-                    function changeLanguage(code) {
-                        var languageUrl = 'da-nang.html';
-                        languageUrl = languageUrl + '?code=' + code + '&returnUrl' + location.href;
-                        location.href = languageUrl;
-                        return false;
-                    }
-                </script>
 
 
                 <div class="time-working pull-right">
@@ -622,7 +494,7 @@
             <div class="container-header clearfix">
                 <div class="logo pull-left">
                     <a href="index.html" title="deliveryNow.vn">
-                        <img id="delivery-header-logo" src="now/images/now.vn.png" alt="deliveryNow.vn" width="112px">
+                        <img id="delivery-header-logo" src="{{asset('/upload/logo.jpg')}}" alt="" width="112px">
                     </a>
                 </div>
 
@@ -787,7 +659,7 @@
                 <div id="login-status" class="user-deli pull-right">
 
 
-                    <a class="btn-login" href="https://id.foody.vn/Account/Login?ReturnUrl=https://www.now.vn:443/lien-he">Login</a>
+                    <a class="btn-login" href="">Login</a>
 
                     <script>
                         $("#logout").bind("click", function() {
@@ -943,15 +815,12 @@
                 </div>
                 <div class="block-footer txt-center">
                     <div class="logo-footer">
-                        <a href="index.html" title="Now service" rel="nofollow">
-                            <img id="delivery-footer-logo" src="now/images/Logo-Nowvn-Elip.png" alt="Now service" title="Now service" width="80">
-
+                        <a href="" title="Now service" rel="nofollow">
                         </a>
                     </div>
-                    <p class="copy-right">© 2018 Now.vn - A Foody Corporation</p>
                     <ul class="social-ico">
                         <li>
-                            <a target="_blank" href="https://www.facebook.com/Now.vn/" title="facebook" class="facebook" rel="nofollow">
+                            <a target="_blank" href="" title="facebook" class="facebook" rel="nofollow">
                                 <i class="fa fa-facebook-f"></i>
                             </a>
                         </li>
@@ -961,7 +830,7 @@
                             </a>
                         </li>
                         <li>
-                            <a target="_blank" href="https://www.instagram.com/deliverynow.vn/" title="Instagram" class="instagram" rel="nofollow">
+                            <a target="_blank" href="" title="Instagram" class="instagram" rel="nofollow">
                                 <i class="fa fa-instagram"></i>
                             </a>
                         </li>
@@ -974,7 +843,6 @@
                     <p>Business registration certificate No: 0311828036</p>
                     <p>Planning and Investment Department Of TPHCM</p>
                     <p>issued date 11/06/2012</p>
-                    <a href="http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=22747" target="_blank" class="registered" title="ĐÃ ĐĂNG KÝ BỘ CÔNG THƯƠNG" rel="nofollow"><img alt="ĐÃ ĐĂNG KÝ BỘ CÔNG THƯƠNG" src="../static.foody.vn/style/images/gov_seals.jpg"></a>
                 </div>
             </div>
         </div>

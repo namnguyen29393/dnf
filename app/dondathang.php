@@ -8,11 +8,18 @@ class dondathang extends Model
 {
     protected $table = 'dondathangs';
 
-    protected $fillable =['sdt','diachi','tongtien','user_id'];
+    protected $fillable =[
+        'sdt',
+        'diachi',
+        'tongtien',
+        'ghichu',
+        'phivc',
+        'user_id',
+        'cuahang_id',
+        'trangthai',
+    ];
 
     protected $primaryKey = 'id_ddh';
-
-    public $timestamps = false;
 
     public function User(){
     	return $this->belongsTo('App\User', 'user_id');
@@ -20,6 +27,10 @@ class dondathang extends Model
 
     public function chitiet(){
     	return $this->hasMany('App\chitiet', 'ddh_id');
+    }
+
+    public function thongtincuahang(){
+        return $this->belongsTo('App\thongtincuahang', 'cuahang_id');
     }
 
 }

@@ -15,13 +15,14 @@ class CreateChitietsTable extends Migration
     {
         Schema::create('chitiets', function (Blueprint $table) {
             $table->increments('id_chitiet');
-            $table->integer('giasp');
+            $table->integer('soluong');
+            $table->integer('giasp');           
             $table->integer('ddh_id')->unsigned();
             $table->foreign('ddh_id')->references('id_ddh')->on('dondathangs')->onDelete('cascade');
             $table->integer('sp_id')->unsigned();
             $table->foreign('sp_id')->references('id_sp')->on('sanphams')->onDelete('cascade');
-            $table->integer('cuahang_id')->unsigned();
-            $table->foreign('cuahang_id')->references('id_cuahang')->on('thongtincuahangs')->onDelete('cascade');
+            // $table->integer('cuahang_id')->unsigned();
+            // $table->foreign('cuahang_id')->references('id_cuahang')->on('thongtincuahangs')->onDelete('cascade');
             $table->timestamps();
         });
     }

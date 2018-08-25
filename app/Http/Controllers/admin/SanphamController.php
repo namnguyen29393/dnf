@@ -64,7 +64,9 @@ class SanphamController extends Controller
         //$sanpham->loaisanpham()->associate($request->loai);
         $sanpham->save();
         
-    	return redirect()->route('admin.sanpham.danhsach')->with('thongbao','Thêm thành công');
+    	return  redirect()
+                ->route('admin.sanpham.danhsach')
+                ->with('thongbao','Thêm thành công');
     }
 
     public function getDanhsach()
@@ -111,14 +113,18 @@ class SanphamController extends Controller
          }
     	$sanpham->save();
         
-    	return redirect()->route('admin.sanpham.danhsach',$sanpham->id_sp)->with(['thongbao_level'=>'success', 'thongbao'=>'Sửa thành công!!!!']);
+    	return  redirect()
+                ->route('admin.sanpham.danhsach',$sanpham->id_sp)
+                ->with(['thongbao_level'=>'success', 'thongbao'=>'Sửa thành công!!!!']);
     }
 
     public function getXoa($id_sp)
     {
         $sanpham = sanpham::find($id_sp);
         $sanpham->delete($id_sp);
-        return redirect()->route('admin.sanpham.danhsach')->with(['thongbao_level'=>'success','thongbao'=>'Xóa thành công!']);
+        return  redirect()
+                ->route('admin.sanpham.danhsach')
+                ->with(['thongbao_level'=>'success','thongbao'=>'Xóa thành công!']);
     }
 
 }
