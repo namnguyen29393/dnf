@@ -79,9 +79,8 @@
 
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
-        
-
         <div class="header-line"></div>
+        <div class="wrapper"></div>
         
     </nav>
     <div class="container" style="margin-bottom: 150px;">
