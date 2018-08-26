@@ -479,7 +479,7 @@ input.input-validation-error, input.input-validation-error[type="text"], input.i
 .wrapper {
     clear: both;
     margin: 0 auto;
-    background: url(images/foody-corp.png)no-repeat center center;
+    background: url(/upload/logo.png)no-repeat center center;
     background-size: 100px;
     height: 35px;
     margin-bottom: 8px;
