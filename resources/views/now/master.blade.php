@@ -183,7 +183,7 @@
         <nav class="white" role="navigation" style="box-shadow:none;border-bottom: #eee 1px solid;">
             <div class="container-header clearfix">
                 <div class="logo pull-left">
-                    <img src="{{asset('/upload/logo.jpg')}}" width="100px" height="55px">
+                    <img src="{{asset('/upload/logo.png')}}" width="100px" height="55px">
                 </div>
 
 
@@ -397,7 +397,11 @@
 
 
 
-
+<div class="container-banner-search">
+    <div style="text-align: center;">
+        <img src="{{asset('/upload/anhdaidien/banner-dat-mon-truc-tuyen-giao-hang-tan-noi.png')}}" title="banner-dat-mon-truc-tuyen-giao-hang-tan-noi" alt="banner-dat-mon-truc-tuyen-giao-hang-tan-noi" style="margin: auto; width: 100%; display: block;" data-change-lang="">
+    </div>
+</div>
 @yield('content')
     
 
