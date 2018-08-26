@@ -397,7 +397,11 @@
 
 
 
-
+<div class="container-banner-search">
+    <div style="text-align: center;">
+        <img src="{{asset('/upload/anhdaidien/banner-dat-mon-truc-tuyen-giao-hang-tan-noi.png')}}" title="banner-dat-mon-truc-tuyen-giao-hang-tan-noi" alt="banner-dat-mon-truc-tuyen-giao-hang-tan-noi" style="margin: auto; width: 100%; display: block;" data-change-lang="">
+    </div>
+</div>
 @yield('content')
     
 
