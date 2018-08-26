@@ -28,7 +28,7 @@ class TrangchuController extends Controller
 			$query->when($type, function($q, $type) {
 				$q->where('tenkhongdau', '=', $type);
 			});
-		})->get();
+		})->paginate(12);
 		$loaicuahang = loaicuahang::all();
 		return view('now.trangchu', [
 			'loaicuahang' => $loaicuahang,

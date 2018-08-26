@@ -17,6 +17,7 @@ class dondathang extends Model
         'user_id',
         'cuahang_id',
         'trangthai',
+        'tx_id',
     ];
 
     protected $primaryKey = 'id_ddh';
@@ -31,6 +32,10 @@ class dondathang extends Model
 
     public function thongtincuahang(){
         return $this->belongsTo('App\thongtincuahang', 'cuahang_id');
+    }
+
+    public function taixe(){
+        return $this->belongsTo('App\taixe', 'tx_id', 'id_tx');
     }
 
 }

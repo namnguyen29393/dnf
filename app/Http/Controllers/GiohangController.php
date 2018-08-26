@@ -100,7 +100,7 @@ class GiohangController extends Controller
             'tongtien' => $sum,
             'user_id' => Auth::user()->id_user,
             'ghichu' => $request->ghichu,
-            'phivc' => $request->phivc,
+            'phivc' => $request->phivc * $request->distance,
             'cuahang_id' =>$request->id_cuahang,
         ];
         $dondathang = dondathang::create($data);
@@ -114,7 +114,14 @@ class GiohangController extends Controller
 
     public function history ()
     {
-        $ddh = dondathang::with(['chitiet', 'thongtincuahang'])->where('user_id', '=', Auth::user()->id_user)->get();
+        $ddh = dondathang::with([
+            'chitiet' => function ($query) {
+                $query->with('sanpham');
+            }, 
+            'thongtincuahang'
+        ])
+            ->where('user_id', '=', Auth::user()->id_user)
+            ->get();
 
         return view('now.customer.lichsu',['ddh'=>$ddh]);
     }

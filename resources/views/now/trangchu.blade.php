@@ -88,7 +88,10 @@
                         </div>
                         
                         @endforeach
+
                     </div>
+
+                        
                     
                     <!-- end ngRepeat: item in topresCtrl.offerRestaurant track by $index -->
 
@@ -148,25 +151,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="pagation" ng-show="topresCtrl.totalCount > topresCtrl.pageSize">
-
-                    <!-- ngIf: topresCtrl.paging.length > 1 && topresCtrl.pageIndex > 0 -->
-                    <!-- ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope active" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">1</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">2</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">3</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">4</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">5</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">6</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope ng-hide" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">7</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope ng-hide" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">8</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope ng-hide" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">9</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope ng-hide" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">10</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope ng-hide" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">11</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope ng-hide" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">12</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging --><a class="number-page ng-binding ng-scope ng-hide" ng-repeat="p in topresCtrl.paging" ng-click="topresCtrl.gotoPage(p.value)" ng-class="{active: topresCtrl.isActive(p)}" ng-hide="(topresCtrl.pageIndex - p.value > 5)||(p.value - topresCtrl.pageIndex > 5)">13</a>
-                    <!-- end ngRepeat: p in topresCtrl.paging -->
-                    <!-- ngIf: topresCtrl.paging.length > 1 && topresCtrl.pageIndex < topresCtrl.paging.length-1 --><a class="ico-nav ng-scope" ng-click="topresCtrl.pageIndex = topresCtrl.pageIndex+1" ng-if="topresCtrl.paging.length > 1 &amp;&amp; topresCtrl.pageIndex < topresCtrl.paging.length-1"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                    <!-- end ngIf: topresCtrl.paging.length > 1 && topresCtrl.pageIndex < topresCtrl.paging.length-1 -->
+                <div>
+                    {{ $stores->links() }}
                 </div>
             </div>
         </section>

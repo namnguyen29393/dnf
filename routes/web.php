@@ -100,6 +100,16 @@ Route::group(['namespace'=>'admin', 'prefix'=>'admin', 'middleware' => ['auth', 
 
 		Route::get('xoa/{id_tx}', 'TaixeController@getXoa')->name('admin.taixe.xoa');
 	});
+
+	Route::group(['prefix'=>'don-dat-hang'],function(){
+		Route::get('danhsach', 'DondathangController@index')->name('admin.dondathang.danhsach');
+
+		Route::get('/{id_tx}','DondathangController@edit')->name('admin.dondathang.sua');
+		Route::post('/accept/{id_tx}','DondathangController@accept')->name('admin.dondathang.accept');
+		Route::post('/reject/{id_tx}','DondathangController@reject')->name('admin.dondathang.reject');
+
+		Route::get('xoa/{id_tx}', 'DondathangController@getXoa')->name('admin.dondathang.xoa');
+	});
 });
 
 Route::get('cuahang/{tencuahang}','CuahangController@getCuahang')->name('fls.chitiet');

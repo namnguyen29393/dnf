@@ -1,7 +1,7 @@
 @extends('now.master')
 @section('content')
-<div class="main-content ng-scope" ng-controller="HistoryController as historyCtrl">
-  <div class="coming-order-container" ng-init="historyCtrl.getListCommingOrders()">
+<div class="main-content ng-scope">
+  <div class="coming-order-container">
     <div class="history-incoming-block pd-top30">
       <h5 class="history-incoming-header ng-hide" ng-show="historyCtrl.countCommonOrder > 0">Đơn hàng đang xử lý
       </h5>
@@ -10,7 +10,7 @@
     <h5 class="history-incoming-header" style="padding-bottom: 5px; padding-top: 15px;" ng-init="historyCtrl.loadData()">Lịch sử đặt giao hàng
     </h5>
     <div class="container-list-bill container-tab-everyday-food" style="clear:both;">
-      <div class="container-filter-bill">
+      {{-- <div class="container-filter-bill">
         <div class="filter-status">
           <label for="">Trạng thái
           </label>
@@ -571,7 +571,7 @@
           }
            );
         </script>
-      </div>
+      </div> --}}
       <div id="billfinished" class="widget-bill border-radius4">
         <div class="header-table-bill clearfix">
           <div class="column-table-bill col-table-1 pull-left" style="height:40px;">
@@ -625,7 +625,7 @@
             </span>
           </div>
           <div class="column-table-bill col-table-5 pull-left">
-            <a href="/da-nang/tra-sua-house-of-cha-hung-vuong" target="_blank" style="color:#525252">
+            <a href="/cuahang/{{ $dh->thongtincuahang->tenkhongdau }}" target="_blank" style="color:#525252">
               <span class="block bold txt-elipsis ng-binding">
                 {{ $dh->thongtincuahang->tencuahang }}
               </span>
@@ -651,7 +651,7 @@
           <div class="column-table-bill col-table-8 pull-left">
             <div style="font-weight:bold">
               <span class="ng-binding">
-                {{ $dh->tongtien }}
+                {{ $dh->tongtien + $dh->phivc }}
               </span>
               <span style="font-size:9px;position:relative;top:-4px;">đ
               </span>
@@ -736,8 +736,17 @@
     </div>
   </div>
 
-  <div class="container-popup-modal" id="popup-modal-history">
-    
+  <div class="container-popup-modal">
+    <div class="modal" id="popup-modal-history" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 4%;">
+    {{-- <div class="modal open" id="modal-history-detail" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;"> --}}
+        <h4 class="txt-confirm">Chi tiết đơn hàng cần thanh toán</h4>
+        <div class="container-info-member" id="history-content">
+
+        </div>
+        <div class="footer-modal modal-footer modal-fixed-footer clearfix" style="background-color:#f2f2f2;position:relative;">
+            <a href="javascript:void(0);" class="waves-effect btn-close modal-close border-radius4" id="close-modal-history">Đóng</a>
+        </div>
+    </div>
   </div>
 
   <div class="container-popup-modal">
@@ -877,131 +886,114 @@
 
 <script type="text/javascript">
   function onClickDetail(dh){
+    $('#popup-modal-history').addClass('open');
+    $('#popup-modal-history').css({
+      'z-index': '1003',
+      'display': 'block',
+      'opacity': '1',
+      'transform': 'scaleX(1)',
+      'top': '10%'
+    });
     console.log(dh)
     var html = `
-      <div class="modal open" id="modal-history-detail" style="z-index: 1003; display: block; opacity: 1; transform: scaleX(1); top: 10%;">
-        <h4 class="txt-confirm">Chi tiết đơn hàng cần thanh toán <span class="pull-right" id="close-modal-history">x</span></h4>
-        <div class="container-info-member">
-            <p class="font14  clearfix">
-                <span class="pull-left">Đặt món tại</span>
-                <span class="bold capitalize pull-left ng-binding" style="margin-left: 5px;">Trà Sữa House Of Cha - Hùng Vương</span>
-                <span class="bold pull-right font16 red-text ng-binding" style="margin-left: 5px;">489,000 <span class="uppercase red-text"> đ</span></span>
-                <span class="pull-right font16 bold red-text">Tổng tiền: </span>
-            </p>
-            <div class="table-detail-bill">
-                <div class="title-table-bill clearfix">
-                    <div class="col-bill w1-bill pull-left">
-                        <span class="bold">Thành viên</span>
-                    </div>
-                    <div class="col-bill w2-bill pull-left">
-                        <span class="bold">Món ăn</span>
-                    </div>
-                    <div class="col-bill w3-bill pull-left">
-                        <span class="bold">Số lượng</span>
-                    </div>
-                    <div class="col-bill w4-bill pull-left">
-                        <span class="bold">Giá</span>
-                    </div>
+      <p class="font14  clearfix">
+          <span class="pull-left">Đặt món tại</span>
+          <span class="bold capitalize pull-left ng-binding" style="margin-left: 5px;">
+            ${dh.thongtincuahang.tencuahang}
+          </span>
+          <span class="bold pull-right font16 red-text ng-binding" style="margin-left: 5px;">
+            ${dh.tongtien + dh.phivc} <span class="uppercase red-text"> đ</span>
+          </span>
+          <span class="pull-right font16 bold red-text">Tổng tiền: </span>
+      </p>
+      <div class="table-detail-bill">
+          <div class="title-table-bill clearfix">
+              <div class="col-bill w1-bill pull-left">
+                  <span class="bold">Thành viên</span>
+              </div>
+              <div class="col-bill w2-bill pull-left">
+                  <span class="bold">Món ăn</span>
+              </div>
+              <div class="col-bill w3-bill pull-left">
+                  <span class="bold">Số lượng</span>
+              </div>
+              <div class="col-bill w4-bill pull-left">
+                  <span class="bold">Giá</span>
+              </div>
 
-                    <div class="col-bill w5-bill pull-left">
-                        <span class="bold">Phí</span>
-                    </div>
-                    <div class="col-bill w4-bill pull-left">
-                        <span class="bold">Giảm giá</span>
-                    </div>
-                    <div class="col-bill w6-bill pull-left">
-                        <span class="bold">Tổng cộng</span>
-                    </div>
-                    <div class="col-bill w7-bill pull-left" style="text-indent:-9999999px;">
-                        checkbox
-                    </div>
-                </div>
-                <div class="container-table-content-bill">
-                    <!-- ngRepeat: user in historyCtrl.data --><div class="table-content-bill clearfix " ng-repeat="user in historyCtrl.data">
-                        <div class="col-content-bill w1-bill pull-left">
-                            <div class="user-bill clearfix">
-                                <div class="pull-left">
-                                    <img ng-src="https://media.foody.vn/usr/g212/2113186/avt/c100x100/foody-avatar-767-636702908393885234.jpg" width="40" height="40" class="circle" src="https://media.foody.vn/usr/g212/2113186/avt/c100x100/foody-avatar-767-636702908393885234.jpg">
-                                </div>
-                                <p class="user-name-bill bold font14 capitalize mar0 ng-binding">Kiến Tiềm</p>
-                            </div>
-                        </div>
-                        <div class="col-content-bill w2-bill pull-left">
-                            <!-- ngRepeat: dish in user.Items --><div class="count-number-food clearfix ng-scope" ng-repeat="dish in user.Items" ng-tool-tip="">
-                                <span class="pull-left">
-                                    <!-- ngIf: dish.Note.length > 0 -->
-                                    <!-- ngIf: !dish.Note --><a ng-if="!dish.Note" href="javascript:void(0)" class="topping-food pull-left circle ng-scope"></a><!-- end ngIf: !dish.Note -->
-                                    <!-- ngIf: dish.Note -->
-                                    <!-- ngIf: !dish.Note --><span ng-if="!dish.Note" class="">2 Sữa tươi trân châu đường đen (M)</span><!-- end ngIf: !dish.Note -->
-                                </span>
+              <div class="col-bill w5-bill pull-left">
+                  <span class="bold">Phí</span>
+              </div>
+              <div class="col-bill w6-bill pull-left">
+                  <span class="bold">Tổng cộng</span>
+              </div>
+              <div class="col-bill w7-bill pull-left" style="text-indent:-9999999px;">
+                  checkbox
+              </div>
+          </div>
+          <div class="container-table-content-bill">
+            <div class="table-content-bill clearfix">
+              <div class="col-content-bill w1-bill pull-left">
+                  <div class="user-bill clearfix">
+                      <div class="pull-left">
+                          <img width="40" height="40" class="circle" src="/upload/icon/userlogin.png">
+                      </div>
+                      <p class="user-name-bill bold font14 capitalize mar0 ng-binding">
+                        ${ '{{ Auth::user()->name }}' }
+                      </p>
+                  </div>
+              </div>
+              <div class="col-content-bill w2-bill pull-left">
+                  <!-- ngRepeat: dish in user.Items -->
+                  `
+                  dh.chitiet.forEach(function(item) {
+                    html +=  `<div class="count-number-food clearfix ng-scope" ng-tool-tip="">
+                        <span class="pull-left">
+                        <a href="javascript:void(0)" class="topping-food pull-left circle ng-scope"></a>
+                          <span class="">
+                            ${item.sanpham.tensp}
+                          </span>
+                        </span>
+                    </div>`
+                  });
+              html += `</div>
+                  <div class="col-content-bill w3-bill pull-left">
+                      <span class="ng-binding">${dh.chitiet.length} Món</span>
+                  </div>
+                  <div class="col-content-bill w4-bill pull-left">
+                      <span class="ng-binding">${dh.tongtien} đ</span>
+                  </div>
 
-                                <span style="font-weight:bold;font-size:11px;padding-left:5px" ng-show="dish.Attributes.length > 0" class="ng-binding ng-hide">
-                                    []
-                                </span>
-                            </div><!-- end ngRepeat: dish in user.Items --><div class="count-number-food clearfix ng-scope" ng-repeat="dish in user.Items" ng-tool-tip="">
-                                <span class="pull-left">
-                                    <!-- ngIf: dish.Note.length > 0 -->
-                                    <!-- ngIf: !dish.Note --><a ng-if="!dish.Note" href="javascript:void(0)" class="topping-food pull-left circle ng-scope"></a><!-- end ngIf: !dish.Note -->
-                                    <!-- ngIf: dish.Note -->
-                                    <!-- ngIf: !dish.Note --><span ng-if="!dish.Note" class="">4 Trà sữa bạc hà (L)</span><!-- end ngIf: !dish.Note -->
-                                </span>
-
-                                <span style="font-weight:bold;font-size:11px;padding-left:5px" ng-show="dish.Attributes.length > 0" class="ng-binding">
-                                    [100% đường, 100% Đá]
-                                </span>
-                            </div><!-- end ngRepeat: dish in user.Items --><div class="count-number-food clearfix ng-scope" ng-repeat="dish in user.Items" ng-tool-tip="">
-                                <span class="pull-left">
-                                    <!-- ngIf: dish.Note.length > 0 -->
-                                    <!-- ngIf: !dish.Note --><a ng-if="!dish.Note" href="javascript:void(0)" class="topping-food pull-left circle ng-scope"></a><!-- end ngIf: !dish.Note -->
-                                    <!-- ngIf: dish.Note -->
-                                    <!-- ngIf: !dish.Note --><span ng-if="!dish.Note" class="">5 Trà xanh sữa vị táo xanh (L)</span><!-- end ngIf: !dish.Note -->
-                                </span>
-
-                                <span style="font-weight:bold;font-size:11px;padding-left:5px" ng-show="dish.Attributes.length > 0" class="ng-binding">
-                                    [100% đường, 100% Đá]
-                                </span>
-                            </div><!-- end ngRepeat: dish in user.Items -->
-                            
-                        </div>
-                        <div class="col-content-bill w3-bill pull-left">
-                            <span ng-show="user.Qty > 0" class="ng-binding">11 Món</span>
-                            <span ng-show="user.Qty == 0" class="ng-hide">Hết món</span>
-                        </div>
-                        <div class="col-content-bill w4-bill pull-left">
-                            <span class="ng-binding">474,000 đ</span>
-                        </div>
-
-                        <div class="col-content-bill w5-bill pull-left">
-                            <span class="ng-binding">15,000 đ</span>
-                        </div>
-                        <div class="col-content-bill w4-bill pull-left">
-                            <span class="ng-binding">-0 đ</span>
-                        </div>
-                        <div class="col-content-bill w6-bill pull-left">
-                            <span class="bold red-text ng-binding">489,000 đ</span>
-                        </div>
-                        <div class="col-content-bill w7-bill pull-left" ng-show="!user.IsCreateBySystem">
-                            <a href="#" class="topping-food has-topping pull-left circle ng-hide" ng-show="historyCtrl.orderGroup != 'Single' &amp;&amp; user.IsHost == false">
-                                <input type="checkbox" id="2249421">
-                                <label for="2249421"></label>
-                            </a>
-                        </div>
-                    </div><!-- end ngRepeat: user in historyCtrl.data -->
-                </div>
-            </div>
-        </div>
-        <div class="footer-modal modal-footer modal-fixed-footer clearfix" style="background-color:#f2f2f2;position:relative;">
-            <a href="javascript:void(0);" class="waves-effect btn-close modal-close border-radius4">Đóng</a>
-        </div>
-    </div>
+                  <div class="col-content-bill w5-bill pull-left">
+                      <span class="ng-binding">${dh.phivc} đ</span>
+                  </div>
+                  <div class="col-content-bill w6-bill pull-left">
+                      <span class="bold red-text ng-binding">${dh.tongtien + dh.phivc} đ</span>
+                  </div>
+                  <div class="col-content-bill w7-bill pull-left" ng-show="!user.IsCreateBySystem">
+                      <a href="#" class="topping-food has-topping pull-left circle ng-hide" ng-show="historyCtrl.orderGroup != 'Single' &amp;&amp; user.IsHost == false">
+                          <input type="checkbox" id="2249421">
+                          <label for="2249421"></label>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
     `
-    $('#popup-modal-history').html(html);
+    $('#history-content').html(html);
   }
-
   
-  // $(document).on('click', '.close-modal-history', function(){
-  //   $('#popup-modal-history').html('');
-  // }
+  $('#popup-modal-history').on('click', '#close-modal-history', function(){
+    $('#popup-modal-history').removeClass('open');
+    $('#popup-modal-history').css({
+      'z-index': '1003',
+      'display': 'none',
+      'opacity': '0',
+      'transform': 'scaleX(0.7)',
+      'top': '4%'
+    });
+    $('#history-content').html('');
+  })
 </script>
 
 @endsection

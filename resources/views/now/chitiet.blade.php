@@ -1,6 +1,6 @@
 @extends('now.master') 
 @section('content')
-<div id="detail-page" class="container-detail-restaurant  ng-scope" ng-controller="DetailController as detailCtrl">
+<div id="detail-page" class="container-detail-restaurant  ng-scope">
 
     <script type="text/javascript" src="/now/Scripts/slick/slick.min.js"></script>
     <div class="info-detail-restaurant" data-id="749400" data-category1="Ăn vặt/vỉa hè">
@@ -1321,6 +1321,7 @@
                         }
                         $('#shipping-address-distance').text(distance)
                         $('#shipping-address-duration').text(duration)
+                        place_end.distance = Math.ceil(distance.split(' ')[0].replace(",", "."));
                         console.log(distance, 'distance')
                         console.log(duration, 'duration')
                         // change map
@@ -1344,6 +1345,7 @@
             phone: phone,
             address: place_end.formatted_address,
             ghichu: ghichu,
+            distance: place_end.distance,
             phivc: 6000
         }
         if (
